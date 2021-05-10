@@ -1,11 +1,18 @@
 // TODO
-var GroceryList = (prop) => (
-  <ul>
-    {prop.groceries.map((item, i) =>
-      <GroceryList key={i} item={item}/>
-    )}
-  </ul>
-);
+var GroceryList = (props) => {
+
+  var onGroceryListItemClick = (event) => {
+    console.log('I got clicked');
+  };
+
+  return (
+    <ul>
+      <li onClick={onGroceryListItemClick}>{props.groceries[0]}</li>
+      <li>{props.groceries[0]}</li>
+      <li>{props.groceries[1]}</li>
+    </ul>
+  );
+};
 
 var App = () => (
   <div>
@@ -13,3 +20,5 @@ var App = () => (
     <GroceryList groceries={['Eggs', 'Veggies']}/>
   </div>
 );
+
+ReactDOM.render(<App />, document.getElementById("app"));
