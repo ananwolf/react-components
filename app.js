@@ -1,24 +1,37 @@
 // TODO
-var GroceryList = (props) => {
-
-  var onGroceryListItemClick = (event) => {
-    console.log('I got clicked');
-  };
-
-  return (
-    <ul>
-      <li onClick={onGroceryListItemClick}>{props.groceries[0]}</li>
-      <li>{props.groceries[0]}</li>
-      <li>{props.groceries[1]}</li>
-    </ul>
-  );
-};
-
-var App = () => (
-  <div>
-    <h2>My Grocery List</h2>
-    <GroceryList groceries={['Eggs', 'Veggies']}/>
-  </div>
+var GroceryList = (props) => (
+  <ul>
+    {props.items.map((item, k) =>
+      <GroceryListItem key={k} item={item} />
+    )}
+  </ul>
 );
 
-ReactDOM.render(<App />, document.getElementById("app"));
+class GroceryListItem extends React.Component {
+  constructor(props) {
+  	super(props);
+
+  	this.state = {
+  		hover: false
+  	};
+  }
+
+  onListItemHover() {
+  	this.setState({
+  		hover: !this.state.hover
+  	});
+  }
+
+  render() {
+    var style = {
+    	fontWeight: this.state.hover ? 'bold' : 'normal'
+    };
+
+  	return (
+      <li style={style} onMouseOver={this.onListItemHover.bind(this)}>{this.props.item}</li>
+  	);
+  }
+}
+
+
+ReactDOM.render(<GroceryList items={['Eggs', 'Veggies', 'Nutmeg']} />, document.getElementById('app'));
